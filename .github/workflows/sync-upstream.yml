@@ -1,0 +1,38 @@
+name: Sync fork from upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: upstream-fork-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    if: github.event.repository.fork
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Merge upstream main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git remote get-url upstream >/dev/null 2>&1 \
+            || git remote add upstream \
+              https://github.com/bnsmb/magisk-modules.git
+
+          git fetch upstream main
+          git merge --no-edit upstream/main
+          git push origin HEAD:main

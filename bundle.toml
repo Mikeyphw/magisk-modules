@@ -1,0 +1,53 @@
+[bundle]
+id = "android_cli_toolbox"
+name = "Android CLI Toolbox"
+author = "Mike"
+description = "Patch-aware CLI binaries synchronized from bnsmb/magisk-modules"
+output_name = "android-cli-toolbox"
+template_pattern = "magisk_module_template_v*.zip"
+upstream_repository = "bnsmb/magisk-modules"
+upstream_subdirectory = "Magisk_Modules"
+base_version = "1.0.0"
+publish_unreviewed = false
+max_archive_uncompressed_mib = 2048
+collision_policy = "error"
+
+# Patterns are matched only against files directly inside Magisk_Modules.
+# The natural-sort newest match is selected. Narrow a pattern to pin a major
+# version, for example "openssl_3.6.*.zip".
+
+[[tools]]
+id = "bash"
+pattern = "bash_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "curl"
+pattern = "curl_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "git"
+pattern = "git_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "openssl"
+pattern = "openssl_3.6.*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "python"
+pattern = "python3_3.14.v*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "rsync"
+pattern = "rsync_*.zip"
+required = true
+hooks = "reject"

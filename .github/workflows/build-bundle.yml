@@ -1,0 +1,145 @@
+name: Build synchronized bundle
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 4 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "bundle.toml"
+      - "bundle-installer-lock.json"
+      - ".bundle-builder/**"
+      - ".github/workflows/build-bundle.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magisk-bundle-build
+  cancel-in-progress: true
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout builder fork
+        uses: actions/checkout@v4
+        with:
+          path: repository
+
+      - name: Checkout latest upstream
+        uses: actions/checkout@v4
+        with:
+          repository: bnsmb/magisk-modules
+          ref: main
+          path: upstream
+          sparse-checkout: |
+            Magisk_Modules
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+
+      - name: Test builder
+        working-directory: repository
+        run: |
+          python3 -m unittest discover -s .bundle-builder/tests -v
+          sh -n .bundle-builder/module/customize.sh
+          sh -n .bundle-builder/module/service.sh
+          sh -n .bundle-builder/module/post-fs-data.sh
+          sh -n .bundle-builder/module/boot-completed.sh
+          sh -n .bundle-builder/module/uninstall.sh
+          sh -n .bundle-builder/module/action.sh
+
+      - name: Build bundle
+        working-directory: repository
+        run: |
+          upstream_commit="$(git -C ../upstream rev-parse HEAD)"
+          upstream_committed_at="$(
+            git -C ../upstream show -s --format=%cI HEAD
+          )"
+
+          python3 .bundle-builder/build_bundle.py \
+            --config bundle.toml \
+            --lock bundle-installer-lock.json \
+            --upstream ../upstream/Magisk_Modules \
+            --output-dir dist \
+            --upstream-commit "$upstream_commit" \
+            --upstream-committed-at "$upstream_committed_at"
+
+      - name: Read build metadata
+        id: meta
+        working-directory: repository
+        run: |
+          python3 - <<'PY' >>"$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+
+          meta = json.loads(Path("dist/build-meta.json").read_text())
+          for key in (
+              "tag",
+              "asset_name",
+              "review_required",
+              "release_title",
+          ):
+              value = str(meta[key]).lower() if isinstance(meta[key], bool) else meta[key]
+              print(f"{key}={value}")
+          PY
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.tag }}
+          path: |
+            repository/dist/*.zip
+            repository/dist/*.json
+            repository/dist/*.md
+            repository/dist/SHA256SUMS
+          if-no-files-found: error
+
+      - name: Create or update release
+        working-directory: repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          ASSET_NAME: ${{ steps.meta.outputs.asset_name }}
+          REVIEW_REQUIRED: ${{ steps.meta.outputs.review_required }}
+          RELEASE_TITLE: ${{ steps.meta.outputs.release_title }}
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" \
+              "dist/$ASSET_NAME" \
+              dist/SHA256SUMS \
+              dist/provenance.json \
+              dist/audit-report.json \
+              dist/release-notes.md \
+              --clobber \
+              --repo "$GITHUB_REPOSITORY"
+          else
+            args=(
+              "$TAG"
+              --repo "$GITHUB_REPOSITORY"
+              --title "$RELEASE_TITLE"
+              --notes-file dist/release-notes.md
+            )
+            if [[ "$REVIEW_REQUIRED" == "true" ]]; then
+              args+=(--draft)
+            else
+              args+=(--latest)
+            fi
+            gh release create "${args[@]}" \
+              "dist/$ASSET_NAME" \
+              dist/SHA256SUMS \
+              dist/provenance.json \
+              dist/audit-report.json
+          fi
+
+          if [[ "$REVIEW_REQUIRED" == "false" ]]; then
+            gh release edit "$TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --draft=false \
+              --latest \
+              --title "$RELEASE_TITLE" \
+              --notes-file dist/release-notes.md
+          fi
