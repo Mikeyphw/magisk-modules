@@ -17,6 +17,12 @@ collision_policy = "error"
 # version, for example "openssl_3.6.*.zip".
 
 [[tools]]
+id = "debugtools"
+pattern = "DebugTools_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
 id = "bash"
 pattern = "bash_*.zip"
 required = true
@@ -29,25 +35,49 @@ required = true
 hooks = "reject"
 
 [[tools]]
+id = "coreutils-rust"
+pattern = "coreutils_in_rust_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "findutils"
+pattern = "findutils_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
 id = "git"
 pattern = "git_*.zip"
 required = true
 hooks = "reject"
 
 [[tools]]
-id = "openssl"
-pattern = "openssl_3.6.*.zip"
-required = true
-hooks = "reject"
-
-[[tools]]
-id = "python"
-pattern = "python3_3.14.v*.zip"
-required = true
-hooks = "reject"
-
-[[tools]]
 id = "rsync"
 pattern = "rsync_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "sqlite3"
+pattern = "sqlite3_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "python314"
+pattern = "python3_3.14.*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "wget2"
+pattern = "wget2_*.zip"
+required = true
+hooks = "reject"
+
+[[tools]]
+id = "compression-tools"
+pattern = "compression_tools_*.zip"
 required = true
 hooks = "reject"
