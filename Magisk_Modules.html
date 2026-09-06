@@ -9,7 +9,7 @@
     <br>
     <h1 align="center"><a name="mozTocId825032" class="mozTocH1"></a>
       Magisk Modules</h1>
-    <div align="center"><b>Last Update: <a href="#History">29.08.2026</a></b><br>
+    <div align="center"><b>Last Update: <a href="#History">06.09.2026</a></b><br>
     </div>
     <br>
     <hr size="2" width="100%">
@@ -176,16 +176,22 @@
     <h2><a name="mozTocId880620" class="mozTocH2"></a><a name="History"></a><a
         href="#top">History</a></h2>
     <br>
-    <details>
+    <details open="">
       <summary><b>Changelog </b></summary>
       <br>
+      <br>
+      <br>
+      <b>06.09.2026</b><br>
+      <br>
+      adapted the <a href="#coreutils">documentation for the core utils</a>
+      to version 9.11.0.0-v1.0.0 of the Magisk Module<br>
       <br>
       <br>
       <b>05.09.2026</b><br>
       <br>
       corrected the download <a
         href="#List_of_available_Magisk_Modules_with_Unix_binaries">links</a>
-      for <b>openssh_9.9p1.v1.1.1.zip</b> and <b>vim_9.2.875-v1.0.0.zip</b>&nbsp;&nbsp;
+      for the files <b>openssh_9.9p1.v1.1.1.zip</b> and <b>vim_9.2.875-v1.0.0.zip</b>&nbsp;&nbsp;
 
       <br>
       <br>
@@ -13666,7 +13672,7 @@ href="https://xdaforums.com/t/module-magisk-module-with-debug-tools-for-android.
       The binaries are in the directory <b>/system/usr/bin</b> and for
       most of them there is a symbolic link in the directory <b>/system/bin</b>.<br>
       <br>
-      As of <b>14.08.2026</b> the Magisk Module contains these binaries
+      As of <b>06.09.2026</b> the Magisk Module contains these binaries
       and scripts:<br>
       <br>
       <table cellspacing="2" cellpadding="2" border="1" width="100%">
@@ -15204,7 +15210,7 @@ href="/My_HowTos_for_Android.html#How_to_list_the_libraries_needed_by_a_binary">
 
       </samp><samp><br>
       </samp><samp>lrwxrwxrwx 1 root root 15 1970-01-12 08:44
-        /system/bin/chrt.linux_utils -&gt; ../usr/bin/chrt</samp><samp><br>
+        /system/bin/chrtcore.linux_utils -&gt; ../usr/bin/chrt</samp><samp><br>
       </samp><samp>lrwxrwxrwx 1 root root 16 1970-01-12 08:44
         /system/bin/dmesg.linux_utils -&gt; ../usr/bin/dmesg</samp><samp><br>
       </samp><samp>lrwxrwxrwx 1 root root 18 1970-01-12 08:44
@@ -36736,8 +36742,9 @@ href="#Documentation_for_the_Magisk_Module_with_clang20_and_the_NDK_r29_beta1">D
               details </td>
           </tr>
           <tr>
-            <td valign="top"><a moz-do-not-send="true"
-                href="/files/public/Android/coreutils_9.5.0.0.zip">coreutils_9.5.0.0.zip</a><br>
+            <td valign="top"><a name="coreutils"></a><a
+                moz-do-not-send="true"
+                href="/files/public/Android/coreutils_9.11.0.0-v1.0.0.zip">coreutils_9.11.0.0-v1.0.0.zip</a><br>
               &nbsp; <br>
             </td>
             <td valign="top"><a
@@ -36752,138 +36759,213 @@ href="#Documentation_for_the_Magisk_Module_with_clang20_and_the_NDK_r29_beta1">D
               <a href="https://github.com/coreutils/coreutils/"
                 target="_blank" moz-do-not-send="true">https://github.com/coreutils/coreutils/</a><br>
               <br>
-              The configure statement used to compile these tools was:<br>
+              The tools only use the standard libraries from Android.<br>
               <br>
-              <samp>./configure --prefix=/data/local/tmp
-                CFLAGS="-Wno-implicit-function-declaration&nbsp;
-                -Wno-int-conversion" --with-openssl=no --without-libgmp</samp><br>
-              <br>
-              -&gt; the tools only use the standard libraries from
-              Android<br>
-              <br>
-              The tools are installed in the directory <b>/system/bin/coreutils</b>
+              To prevent overriding the coreutils in Android the tools
+              are installed in the directory <b>/system/bin/coreutils</b>
               <br>
               <br>
               <details>
                 <summary><b>List of executables in the module</b></summary>
                 <br>
-                as of <b>28.07.2024:</b><br>
+                ASUS_I006D:/ $ date<br>
+                <b>Sun Sep&nbsp; 6 16:36:16 CEST 2026</b><br>
+                ASUS_I006D:/ $ <br>
                 <br>
-                [<br>
-                b2sum<br>
-                base32<br>
-                base64<br>
-                basename<br>
+                ASUS_I006D:/ $ <b>ls -l /system/bin/coreutils/</b><br>
+                total 14784<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 48040 2026-09-06
+                16:24 [<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 66144 2026-09-06
+                16:24 b2sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 53464 2026-09-06
+                16:24 base32<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 52864 2026-09-06
+                16:24 base64<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 43368 2026-09-06
+                16:24 basename<br>
+                -rwxr-xr-x 1 root root&nbsp; 188560 2026-09-06 16:24
                 basenc<br>
-                cat<br>
-                chcon<br>
-                chgrp<br>
-                chmod<br>
-                chown<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 51824 2026-09-06
+                16:24 cat<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 83376 2026-09-06
+                16:24 chgrp<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 71928 2026-09-06
+                16:24 chmod<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 83376 2026-09-06
+                16:24 chown<br>
+                -rwxr-xr-x 1 root root&nbsp; 107936 2026-09-06 16:24
                 chroot<br>
-                cksum<br>
-                comm<br>
-                cp<br>
+                -rwxr-xr-x 1 root root 5936784 2026-09-06 16:24 cksum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 51056 2026-09-06
+                16:24 comm<br>
+                -rwxr-xr-x 1 root root&nbsp; 121296 2026-09-06 16:24 cp<br>
+                -rwxr-xr-x 1 root root&nbsp; 128840 2026-09-06 16:24
                 csplit<br>
-                cut<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 65904 2026-09-06
+                16:24 cut<br>
+                -rwxr-xr-x 1 root root&nbsp; 100216 2026-09-06 16:24
                 date<br>
-                dcgen<br>
-                dd<br>
-                df<br>
-                dir<br>
-                dircolors<br>
-                dirname<br>
-                du<br>
-                du-tests<br>
-                echo<br>
-                env<br>
-                expand<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 81048 2026-09-06
+                16:24 dd<br>
+                -rwxr-xr-x 1 root root&nbsp; 146104 2026-09-06 16:24 df<br>
+                -rwxr-xr-x 1 root root&nbsp; 183072 2026-09-06 16:24 dir<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 72200 2026-09-06
+                16:24 dircolors<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42696 2026-09-06
+                16:24 dirname<br>
+                -rwxr-xr-x 1 root root&nbsp; 217624 2026-09-06 16:24 du<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 38752 2026-09-06
+                16:24 echo<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 55624 2026-09-06
+                16:24 env<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 60160 2026-09-06
+                16:24 expand<br>
+                -rwxr-xr-x 1 root root&nbsp; 256096 2026-09-06 16:24
                 expr<br>
+                -rwxr-xr-x 1 root root&nbsp; 274072 2026-09-06 16:24
                 factor<br>
-                false<br>
-                fmt<br>
-                fold<br>
-                getlimits<br>
-                ginstall<br>
-                groups<br>
-                head<br>
-                id<br>
-                join<br>
-                kill<br>
-                libstdbuf.so<br>
-                link<br>
-                ln<br>
-                logname<br>
-                ls<br>
-                make-prime-list<br>
-                md5sum<br>
-                mkdir<br>
-                mkfifo<br>
-                mknod<br>
-                mktemp<br>
-                mv<br>
-                nice<br>
-                nl<br>
-                nohup<br>
-                nproc<br>
-                numfmt<br>
-                od<br>
-                paste<br>
-                pathchk<br>
-                pinky<br>
-                pr<br>
-                printenv<br>
-                printf<br>
-                ptx<br>
-                pwd<br>
-                readlink<br>
-                realpath<br>
-                rm<br>
-                rmdir<br>
-                runcon<br>
-                seq<br>
-                sha1sum<br>
-                sha224sum<br>
-                sha256sum<br>
-                sha384sum<br>
-                sha512sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 36448 2026-09-06
+                16:24 false<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 54816 2026-09-06
+                16:24 fmt<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 59680 2026-09-06
+                16:24 fold<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 44536 2026-09-06
+                16:24 groups<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 97672 2026-09-06
+                16:24 head<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 51344 2026-09-06
+                16:24 id<br>
+                -rwxr-xr-x 1 root root&nbsp; 128688 2026-09-06 16:24
+                install<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 64200 2026-09-06
+                16:24 join<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42400 2026-09-06
+                16:24 link<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 76224 2026-09-06
+                16:24 ln<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42232 2026-09-06
+                16:24 logname<br>
+                -rwxr-xr-x 1 root root&nbsp; 183072 2026-09-06 16:24 ls<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 61208 2026-09-06
+                16:24 md5sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 55160 2026-09-06
+                16:24 mkdir<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 47128 2026-09-06
+                16:24 mkfifo<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 50376 2026-09-06
+                16:24 mknod<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 49424 2026-09-06
+                16:24 mktemp<br>
+                -rwxr-xr-x 1 root root&nbsp; 129168 2026-09-06 16:24 mv<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 45328 2026-09-06
+                16:24 nice<br>
+                -rwxr-xr-x 1 root root&nbsp; 122304 2026-09-06 16:24 nl<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 47304 2026-09-06
+                16:24 nohup<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 50872 2026-09-06
+                16:24 nproc<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 92272 2026-09-06
+                16:24 numfmt<br>
+                -rwxr-xr-x 1 root root&nbsp; 123424 2026-09-06 16:24 od<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 48696 2026-09-06
+                16:24 paste<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 43504 2026-09-06
+                16:24 pathchk<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 53272 2026-09-06
+                16:24 pinky<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 98456 2026-09-06
+                16:24 pr<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42352 2026-09-06
+                16:24 printenv<br>
+                -rwxr-xr-x 1 root root 1014264 2026-09-06 16:24 printf<br>
+                -rwxr-xr-x 1 root root&nbsp; 133904 2026-09-06 16:24 ptx<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 51456 2026-09-06
+                16:24 pwd<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 57744 2026-09-06
+                16:24 readlink<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 58992 2026-09-06
+                16:24 realpath<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 75880 2026-09-06
+                16:24 rm<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 46472 2026-09-06
+                16:24 rmdir<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 99680 2026-09-06
+                16:24 seq<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 67512 2026-09-06
+                16:24 sha1sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 68568 2026-09-06
+                16:24 sha224sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 68568 2026-09-06
+                16:24 sha256sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 67832 2026-09-06
+                16:24 sha384sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 67896 2026-09-06
+                16:24 sha512sum<br>
+                -rwxr-xr-x 1 root root&nbsp; 113072 2026-09-06 16:24
                 shred<br>
-                shuf<br>
-                sleep<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 64176 2026-09-06
+                16:24 shuf<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 48064 2026-09-06
+                16:24 sleep<br>
+                -rwxr-xr-x 1 root root&nbsp; 183328 2026-09-06 16:24
                 sort<br>
+                -rwxr-xr-x 1 root root&nbsp; 122376 2026-09-06 16:24
                 split<br>
+                -rwxr-xr-x 1 root root&nbsp; 149064 2026-09-06 16:24
                 stat<br>
-                stdbuf<br>
+                -rwxr-xr-x 1 root root&nbsp; 119632 2026-09-06 16:24
                 stty<br>
-                sum<br>
-                sync<br>
-                tac<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 58952 2026-09-06
+                16:24 sum<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 44760 2026-09-06
+                16:24 sync<br>
+                -rwxr-xr-x 1 root root&nbsp; 121720 2026-09-06 16:24 tac<br>
+                -rwxr-xr-x 1 root root&nbsp; 132536 2026-09-06 16:24
                 tail<br>
-                tee<br>
-                test<br>
-                timeout<br>
-                touch<br>
-                tr<br>
-                true<br>
-                truncate<br>
-                tsort<br>
-                tty<br>
-                uname<br>
-                unexpand<br>
-                uniq<br>
-                unlink<br>
-                uptime<br>
-                users<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 50688 2026-09-06
+                16:24 tee<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 47536 2026-09-06
+                16:24 test<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 55352 2026-09-06
+                16:24 timeout<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 86272 2026-09-06
+                16:24 touch<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 58960 2026-09-06
+                16:24 tr<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 36448 2026-09-06
+                16:24 true<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 49688 2026-09-06
+                16:24 truncate<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 48128 2026-09-06
+                16:24 tsort<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42056 2026-09-06
+                16:24 tty<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 45512 2026-09-06
+                16:24 uname<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 60760 2026-09-06
+                16:24 unexpand<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 57128 2026-09-06
+                16:24 uniq<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42272 2026-09-06
+                16:24 unlink<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 45192 2026-09-06
+                16:24 users<br>
+                -rwxr-xr-x 1 root root&nbsp; 183072 2026-09-06 16:24
                 vdir<br>
-                wc<br>
-                who<br>
-                whoami<br>
-                yes<br>
-                <br>
-                <br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 73984 2026-09-06
+                16:24 wc<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 97976 2026-09-06
+                16:24 who<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 42448 2026-09-06
+                16:24 whoami<br>
+                -rwxr-xr-x 1 root root&nbsp;&nbsp; 46112 2026-09-06
+                16:24 yes<br>
+                ASUS_I006D:/ $ <br>
                 <br>
               </details>
-              <br>
+              ----<br>
               <br>
             </td>
           </tr>
